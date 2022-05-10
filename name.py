@@ -21,7 +21,41 @@ img = pygame.Surface((20, 20));
 img.fill((255, 0, 0));
 f = pygame.font.SysFont('times bold', 30);
 clock = pygame.time.Clock()
-
+while True:
+	clock.tick(10)
+	for e in pygame.event.get():
+		if e.type == QUIT:
+			sys.exit(0)
+		elif e.type == KEYDOWN:
+			if e.key == K_UP and dirs != 0:dirs = 2
+			elif e.key == K_DOWN and dirs != 2:dirs = 0
+			elif e.key == K_LEFT and dirs != 1:dirs = 3
+			elif e.key == K_RIGHT and dirs != 3:dirs = 1
+	i = len(xs)-1
+	while i >= 2:
+		if collide(xs[0], xs[i], ys[0], ys[i], 20, 20, 20, 20):
+			die(s, score)
+		i-= 1
+	if collide(xs[0], applepos[0], ys[0], applepos[1], 20, 10, 20, 10):
+		score+=1;
+		xs.append(700);
+		ys.append(700);
+		applepos=(random.randint(0,590),random.randint(0,590))
+	#print(xs,ys)
+      
+	if xs[0] < 0 or xs[0] > 580 or ys[0] < 0 or ys[0] > 580:
+		die(s, score)
+	i = len(xs)-1
+	while i >= 1:
+		xs[i] = xs[i-1];ys[i] = ys[i-1];i -= 1
+	if dirs==0:ys[0] += 20
+	elif dirs==1:xs[0] += 20
+	elif dirs==2:ys[0] -= 20
+	elif dirs==3:xs[0] -= 20	
+	s.fill((0,0,0))	
+	for i in range(0, len(xs)):
+		s.blit(img, (xs[i], ys[i]))
+	s.blit(appleimage, applepos);t=f.render(str(score), True, (255,255,255));s.blit(t, (10, 10));pygame.display.update()
 
 
 
