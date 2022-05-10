@@ -1,13 +1,13 @@
-greeting_message = "Greetings and welcome to my program"
-class Ephesians:
-    def __init__(self, book = "Ephesians", chapter = range(1, 7), verse = range(1, 34)):
-        self.book = book
-        self.chapter = chapter
-        self.verse = verse
-    def __repr__(self):
-        return self.book
+import pygame, random, sys
+from pygame.locals import * 
 
-ephesians = Ephesians()
+def collide(x1, x2, y1, y2, w1, w2, h1, h2):
+    if x1+w1>x2 and x1<x2+w2 and y1+h1>y2 and y1<y2+h2:
+        return True
+    else:
+        return False
+
+
 
 
 
